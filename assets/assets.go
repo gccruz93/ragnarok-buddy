@@ -7,4 +7,5 @@ import "embed"
 //go:embed npc/*
 //go:embed sound/*
 //go:embed ba_frostjoke.txt
+//go:embed icon.jpg
 var Assets embed.FS
