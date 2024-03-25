@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"image/color"
+	"strings"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/text"
@@ -13,7 +14,7 @@ type Monster struct {
 	name                          string
 	speed                         float64
 	moveFuel, idleTime, idleCount int
-	hp                            int
+	maxhp, hp                     int
 
 	// draw
 	drawName bool
@@ -133,10 +134,29 @@ func (m *Monster) SetWalkAudio(name string, frame int) {
 }
 
 func SpawnRandom(n int) {
+	nextSpawn = random(cfg.PetsSpawnSecondsMin, cfg.PetsSpawnSecondsMax)
+
 	entry := []string{"angeling", "baphometjr", "ghostring", "kobold_axe", "kobold_hammer", "kobold_mace", "lunatic", "poring", "smokie", "spore"}
 
+	if cfg.PetsBlocked != "" {
+		canSpawn := false
+		for _, pet := range entry {
+			if !strings.Contains(cfg.PetsBlocked, pet) {
+				canSpawn = true
+				break
+			}
+		}
+		if !canSpawn {
+			return
+		}
+	}
+
 	for n > 0 {
-		switch entry[random(0, len(entry)-1)] {
+		pet := entry[random(0, len(entry)-1)]
+		if cfg.PetsBlocked != "" && strings.Contains(cfg.PetsBlocked, pet) {
+			continue
+		}
+		switch pet {
 		case "angeling":
 			pets = append(pets, NewAngeling())
 		case "baphometjr":
@@ -180,6 +200,7 @@ func NewPoring() *Monster {
 	m := &Monster{
 		name:  "Poring",
 		speed: 1.3,
+		maxhp: 100,
 		hp:    100,
 	}
 	m.SetGifs("poring")
@@ -195,6 +216,7 @@ func NewLunatic() *Monster {
 	m := &Monster{
 		name:  "Lunatic",
 		speed: 1.9,
+		maxhp: 100,
 		hp:    100,
 	}
 	m.SetGifs("lunatic")
@@ -209,6 +231,7 @@ func NewAngeling() *Monster {
 	m := &Monster{
 		name:  "Angeling",
 		speed: 2.5,
+		maxhp: 100,
 		hp:    100,
 	}
 	m.SetGifs("angeling")
@@ -224,6 +247,7 @@ func NewBaphometjr() *Monster {
 	m := &Monster{
 		name:  "Baphomet Jr.",
 		speed: 4,
+		maxhp: 100,
 		hp:    100,
 	}
 	m.SetGifs("baphometjr")
@@ -239,6 +263,7 @@ func NewGhostring() *Monster {
 	m := &Monster{
 		name:  "Ghostring",
 		speed: 2,
+		maxhp: 100,
 		hp:    100,
 	}
 	m.SetGifs("ghostring")
@@ -253,6 +278,7 @@ func NewKoboldAxe() *Monster {
 	m := &Monster{
 		name:  "Kobold",
 		speed: 1.3,
+		maxhp: 100,
 		hp:    100,
 	}
 	m.SetGifs("kobold_axe")
@@ -267,6 +293,7 @@ func NewKoboldHammer() *Monster {
 	m := &Monster{
 		name:  "Kobold",
 		speed: 1.3,
+		maxhp: 100,
 		hp:    100,
 	}
 	m.SetGifs("kobold_hammer")
@@ -281,6 +308,7 @@ func NewKoboldMace() *Monster {
 	m := &Monster{
 		name:  "Kobold",
 		speed: 1.3,
+		maxhp: 100,
 		hp:    100,
 	}
 	m.SetGifs("kobold_mace")
@@ -295,6 +323,7 @@ func NewSmokie() *Monster {
 	m := &Monster{
 		name:  "Smokie",
 		speed: 1.5,
+		maxhp: 100,
 		hp:    100,
 	}
 	m.SetGifs("smokie")
@@ -309,6 +338,7 @@ func NewSpore() *Monster {
 	m := &Monster{
 		name:  "Spore",
 		speed: 1.5,
+		maxhp: 100,
 		hp:    100,
 	}
 	m.SetGifs("spore")
