@@ -4,7 +4,11 @@ go 1.22.1
 
 require github.com/hajimehoshi/ebiten/v2 v2.6.7
 
-require github.com/stretchr/testify v1.9.0 // indirect
+require (
+	github.com/akavel/rsrc v0.10.2 // indirect
+	github.com/josephspurrier/goversioninfo v1.4.0 // indirect
+	github.com/stretchr/testify v1.9.0 // indirect
+)
 
 require (
 	github.com/ebitengine/oto/v3 v3.1.1 // indirect
