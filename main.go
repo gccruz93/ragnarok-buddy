@@ -5,7 +5,11 @@ Copyright © 2024 <https://github.com/gccruz93>
 package main
 
 import (
+	"bytes"
+	"desktop-buddy/assets"
 	_ "embed"
+	"image"
+	_ "image/jpeg"
 	"log"
 
 	"github.com/hajimehoshi/ebiten/v2"
@@ -23,6 +27,7 @@ var (
 	pets            []*Monster
 	mplusNormalFont font.Face
 	cfg             Cfg
+	nextSpawn       = 0
 )
 
 func init() {
@@ -62,7 +67,7 @@ func (g *Game) Update() error {
 	// 	log.Println(fmt.Sprintln("pets alive:", len(pets)))
 	// }
 
-	if frameCount%1800 == 0 && len(pets) < cfg.Max {
+	if frameCount%(nextSpawn*ebiten.TPS()) == 0 && len(pets) < cfg.PetsMax {
 		SpawnRandom(1)
 	}
 
@@ -76,10 +81,13 @@ func (g *Game) Update() error {
 		if isMouseHover(mx, my, e.x, e.y, e.x+float64(e.width), e.y+float64(e.height)) {
 			// ebiten.SetCursorMode(ebiten.CursorModeHidden)
 			e.drawName = true
-			e.hp -= 1
+			e.hp--
 		} else {
 			// ebiten.SetCursorMode(ebiten.CursorModeVisible)
 			e.drawName = false
+			if e.hp < e.maxhp {
+				e.hp++
+			}
 		}
 
 		if e.hp > 0 {
@@ -102,17 +110,27 @@ func main() {
 	ebiten.SetWindowDecorated(false)
 	ebiten.SetWindowFloating(true)
 	ebiten.SetWindowMousePassthrough(true)
-	// TODO: ebiten.SetWindowIcon()
 	sw, sh := ebiten.ScreenSizeInFullscreen()
-	screenHeight = sh - 62
-	screenWidth = sw
+	screenHeight = sh - cfg.ScreenPaddingBottom
+	screenWidth = sw * cfg.ScreenMonitors
 	ebiten.SetWindowSize(screenWidth, screenHeight)
+
+	imgByte, err := assets.Assets.ReadFile("icon.jpg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	img, _, err := image.Decode(bytes.NewReader(imgByte))
+	if err != nil {
+		log.Fatal(err)
+	}
+	iconImages := []image.Image{img}
+	ebiten.SetWindowIcon(iconImages)
 
 	op := &ebiten.RunGameOptions{}
 	op.ScreenTransparent = true
-	op.SkipTaskbar = true
+	// op.SkipTaskbar = true
 
-	SpawnRandom(random(1, cfg.Max))
+	SpawnRandom(random(1, cfg.PetsMax))
 
 	if err := ebiten.RunGameWithOptions(&Game{}, op); err != nil {
 		log.Fatal(err)
