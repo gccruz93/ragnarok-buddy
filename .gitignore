@@ -1,3 +1,4 @@
 bin
 resource.syso
-cfg.ini
+*.ini
+*.exe
