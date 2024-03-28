@@ -2,12 +2,15 @@ module desktop-buddy
 
 go 1.22.1
 
-require github.com/hajimehoshi/ebiten/v2 v2.6.7
+require (
+	github.com/energye/systray v1.0.2
+	github.com/hajimehoshi/ebiten/v2 v2.6.7
+)
 
 require (
-	github.com/akavel/rsrc v0.10.2 // indirect
-	github.com/josephspurrier/goversioninfo v1.4.0 // indirect
+	github.com/godbus/dbus/v5 v5.0.4 // indirect
 	github.com/stretchr/testify v1.9.0 // indirect
+	github.com/tevino/abool v0.0.0-20220530134649-2bfc934cb23c // indirect
 )
 
 require (
