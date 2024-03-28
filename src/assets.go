@@ -2,7 +2,7 @@ package main
 
 import (
 	"bytes"
-	"desktop-buddy/assets"
+	"embed"
 	"image"
 	"image/draw"
 	"image/gif"
@@ -13,6 +13,15 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/audio/wav"
 )
 
+//go:embed assets/cursor/*
+//go:embed assets/mob/*
+//go:embed assets/npc/*
+//go:embed assets/sound/*
+//go:embed assets/ba_frostjoke.txt
+//go:embed assets/favicon.ico
+//go:embed assets/icon.jpg
+var assets embed.FS
+
 var loadedGifs map[string][]*ebiten.Image
 var loadedAudios map[string][]byte
 
@@ -22,7 +31,7 @@ func loadGif(name string) {
 	if _, ok := loadedGifs[name]; ok {
 		return
 	}
-	file, err := assets.Assets.ReadFile(name)
+	file, err := assets.ReadFile(name)
 	if err != nil {
 		log.Println("loadGif ERR: " + name)
 		return
@@ -35,7 +44,7 @@ func loadAudio(name string) {
 	if _, ok := loadedAudios[name]; ok {
 		return
 	}
-	file, err := assets.Assets.ReadFile(name)
+	file, err := assets.ReadFile(name)
 	if err != nil {
 		log.Println("loadAudio ERR: " + name)
 		return

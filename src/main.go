@@ -6,12 +6,12 @@ package main
 
 import (
 	"bytes"
-	"desktop-buddy/assets"
 	_ "embed"
 	"image"
 	_ "image/jpeg"
 	"log"
 
+	"github.com/energye/systray"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/audio"
 	"github.com/hajimehoshi/ebiten/v2/examples/resources/fonts"
@@ -22,9 +22,10 @@ import (
 var (
 	screenHeight    = 0
 	screenWidth     = 0
+	title           = "Ragnarok Buddy"
 	frameCount      = 0
 	audioContext    *audio.Context
-	pets            []*Monster
+	mobs            []*Mob
 	mplusNormalFont font.Face
 	cfg             Cfg
 	nextSpawn       = 0
@@ -32,10 +33,6 @@ var (
 
 func init() {
 	cfg.Load()
-
-	audioContext = audio.NewContext(sampleRate)
-	loadedGifs = make(map[string][]*ebiten.Image)
-	loadedAudios = make(map[string][]byte)
 
 	tt, err := opentype.Parse(fonts.MPlus1pRegular_ttf)
 	if err != nil {
@@ -47,6 +44,10 @@ func init() {
 		DPI:     62,
 		Hinting: font.HintingVertical,
 	})
+
+	audioContext = audio.NewContext(sampleRate)
+	loadedGifs = make(map[string][]*ebiten.Image)
+	loadedAudios = make(map[string][]byte)
 }
 
 type Game struct{}
@@ -61,52 +62,28 @@ func isMouseHover(mx, my int, x, y, x2, y2 float64) bool {
 
 func (g *Game) Update() error {
 	frameCount++
-	mx, my := ebiten.CursorPosition()
 
-	// if frameCount%60 == 0 {
-	// 	log.Println(fmt.Sprintln("pets alive:", len(pets)))
-	// }
-
-	if frameCount%(nextSpawn*ebiten.TPS()) == 0 && len(pets) < cfg.PetsMax {
-		SpawnRandom(1)
+	switch cfg.Gamemode {
+	case 0:
+		// normal
+		g.UpdateGamemode0()
+	case 1:
+		// maps
+		g.UpdateGamemode1()
+	default:
 	}
-
-	petsAlive := pets[:0]
-	for _, e := range pets {
-		e.Update()
-
-		// if !inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
-		// 	keepPets = append(keepPets, e)
-		// }
-		if isMouseHover(mx, my, e.x, e.y, e.x+float64(e.width), e.y+float64(e.height)) {
-			// ebiten.SetCursorMode(ebiten.CursorModeHidden)
-			e.drawName = true
-			e.hp--
-		} else {
-			// ebiten.SetCursorMode(ebiten.CursorModeVisible)
-			e.drawName = false
-			if e.hp < e.maxhp {
-				e.hp++
-			}
-		}
-
-		if e.hp > 0 {
-			petsAlive = append(petsAlive, e)
-		}
-	}
-	pets = petsAlive
 
 	return nil
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
-	for _, e := range pets {
+	for _, e := range mobs {
 		e.Draw(screen)
 	}
 }
 
 func main() {
-	ebiten.SetWindowTitle("Ragnarok Buddy")
+	ebiten.SetWindowTitle(title)
 	ebiten.SetWindowDecorated(false)
 	ebiten.SetWindowFloating(true)
 	ebiten.SetWindowMousePassthrough(true)
@@ -115,11 +92,11 @@ func main() {
 	screenWidth = sw * cfg.ScreenMonitors
 	ebiten.SetWindowSize(screenWidth, screenHeight)
 
-	imgByte, err := assets.Assets.ReadFile("icon.jpg")
+	iconBytes, err := assets.ReadFile("assets/icon.jpg")
 	if err != nil {
 		log.Fatal(err)
 	}
-	img, _, err := image.Decode(bytes.NewReader(imgByte))
+	img, _, err := image.Decode(bytes.NewReader(iconBytes))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -128,11 +105,14 @@ func main() {
 
 	op := &ebiten.RunGameOptions{}
 	op.ScreenTransparent = true
-	// op.SkipTaskbar = true
+	op.SkipTaskbar = cfg.SkipTaskbar
 
-	SpawnRandom(random(1, cfg.PetsMax))
+	nextSpawn = 1
 
+	trayStart, trayEnd := systray.RunWithExternalLoop(onReady, onExit)
+	trayStart()
 	if err := ebiten.RunGameWithOptions(&Game{}, op); err != nil {
+		trayEnd()
 		log.Fatal(err)
 	}
 }

@@ -3,9 +3,8 @@
 #### Instructions
 1. Download the latest release [here](https://github.com/gccruz93/ragnarok-buddy/releases).
 2. Run the exe.
-3. A cfg.ini file will appear, configure as you like.
+3. A cfg.ini file will appear in the same folder, configure as you like. Or just right click the tray icon on your taskbar!
 4. Enjoy your new pets!
-5. IMPORTANT: Right now, the only way to close is through the Task Manager! Sorry for the inconvenience!
 
 #### Features
 - Available pets: Angeling, Baphomet Jr., Ghostring, Kobold Axe, Kobold Hammer, Kobold Mace, Lunatic, Poring, Smokie, Spore. More coming soon...

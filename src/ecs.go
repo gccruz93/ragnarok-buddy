@@ -20,9 +20,9 @@ func (e *Entity) Update() {
 	if frameCount%e.frameSpeed == 0 {
 		e.frameIndex = (e.frameIndex + 1) % e.frameLength
 
-		if e.frameIndex == e.frameAudio && e.audio != "" && cfg.MainVolume > 0 {
+		if e.frameIndex == e.frameAudio && e.audio != "" && cfg.EffectsVolume > 0 && !cfg.EffectsMuted {
 			p := audioContext.NewPlayerFromBytes(loadedAudios[e.audio])
-			p.SetVolume(cfg.MainVolume)
+			p.SetVolume(cfg.EffectsVolume)
 			p.Play()
 		}
 	}
