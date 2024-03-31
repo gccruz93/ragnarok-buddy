@@ -1,5 +1,7 @@
 <p align="center"><b>Ragnarok desktop buddy</b></p>
 
+# All assets belong to GRAVITY Co. Ltd. This project is not affiliated with them.
+
 #### Instructions
 1. Download the latest release [here](https://github.com/gccruz93/ragnarok-buddy/releases).
 2. Run the exe.
