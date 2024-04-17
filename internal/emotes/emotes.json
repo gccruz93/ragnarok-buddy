@@ -1,0 +1,212 @@
+[
+  {
+    "asset": "cloud",
+    "frametime": 4,
+    "rarity": 1,
+    "anchor_margin": 10,
+    "loops": 1
+  },
+  {
+    "asset": "dice1",
+    "frametime": 4,
+    "rarity": 1,
+    "anchor_margin": 10,
+    "loops": 1
+  },
+  {
+    "asset": "dice2",
+    "frametime": 4,
+    "rarity": 1,
+    "anchor_margin": 10,
+    "loops": 1
+  },
+  {
+    "asset": "dice3",
+    "frametime": 4,
+    "rarity": 1,
+    "anchor_margin": 10,
+    "loops": 1
+  },
+  {
+    "asset": "dice4",
+    "frametime": 4,
+    "rarity": 1,
+    "anchor_margin": 10,
+    "loops": 1
+  },
+  {
+    "asset": "dice5",
+    "frametime": 4,
+    "rarity": 1,
+    "anchor_margin": 10,
+    "loops": 1
+  },
+  {
+    "asset": "dice6",
+    "frametime": 4,
+    "rarity": 1,
+    "anchor_margin": 10,
+    "loops": 1
+  },
+  {
+    "asset": "drop",
+    "frametime": 4,
+    "rarity": 1,
+    "anchor_margin": 10,
+    "loops": 1
+  },
+  {
+    "asset": "exclamation",
+    "frametime": 4,
+    "rarity": 1,
+    "anchor_margin": 10,
+    "loops": 1
+  },
+  {
+    "asset": "flag_brazil",
+    "frametime": 6,
+    "rarity": 1,
+    "anchor_margin": 10,
+    "loops": 0
+  },
+  {
+    "asset": "flag_korea",
+    "frametime": 6,
+    "rarity": 1,
+    "anchor_margin": 10,
+    "loops": 0
+  },
+  {
+    "asset": "grr",
+    "frametime": 4,
+    "rarity": 1,
+    "anchor_margin": 10,
+    "loops": 1
+  },
+  {
+    "asset": "heart",
+    "frametime": 4,
+    "rarity": 1,
+    "anchor_margin": 10,
+    "loops": 1
+  },
+  {
+    "asset": "heh",
+    "frametime": 3,
+    "rarity": 1,
+    "anchor_margin": 10,
+    "loops": 1
+  },
+  {
+    "asset": "help",
+    "frametime": 4,
+    "rarity": 1,
+    "anchor_margin": 10,
+    "loops": 1
+  },
+  {
+    "asset": "hunf",
+    "frametime": 4,
+    "rarity": 1,
+    "anchor_margin": 10,
+    "loops": 1
+  },
+  {
+    "asset": "hunf2",
+    "frametime": 4,
+    "rarity": 1,
+    "anchor_margin": 10,
+    "loops": 1
+  },
+  {
+    "asset": "idea",
+    "frametime": 4,
+    "rarity": 1,
+    "anchor_margin": 10,
+    "loops": 1
+  },
+  {
+    "asset": "interrogation",
+    "frametime": 4,
+    "rarity": 1,
+    "anchor_margin": 10,
+    "loops": 1
+  },
+  {
+    "asset": "love",
+    "frametime": 4,
+    "rarity": 1,
+    "anchor_margin": 10,
+    "loops": 1
+  },
+  {
+    "asset": "no",
+    "frametime": 4,
+    "rarity": 1,
+    "anchor_margin": 10,
+    "loops": 1
+  },
+  {
+    "asset": "pet",
+    "frametime": 4,
+    "rarity": 1,
+    "anchor_margin": 10,
+    "loops": 1
+  },
+  {
+    "asset": "silence",
+    "frametime": 4,
+    "rarity": 1,
+    "anchor_margin": 10,
+    "loops": 1
+  },
+  {
+    "asset": "sing",
+    "frametime": 4,
+    "rarity": 1,
+    "anchor_margin": 10,
+    "loops": 1
+  },
+  {
+    "asset": "sob",
+    "frametime": 4,
+    "rarity": 1,
+    "anchor_margin": 10,
+    "loops": 1
+  },
+  {
+    "asset": "sorry",
+    "frametime": 4,
+    "rarity": 1,
+    "anchor_margin": 10,
+    "loops": 1
+  },
+  {
+    "asset": "thanks",
+    "frametime": 4,
+    "rarity": 1,
+    "anchor_margin": 10,
+    "loops": 1
+  },
+  {
+    "asset": "thinking",
+    "frametime": 4,
+    "rarity": 1,
+    "anchor_margin": 10,
+    "loops": 1
+  },
+  {
+    "asset": "tongue",
+    "frametime": 4,
+    "rarity": 1,
+    "anchor_margin": 10,
+    "loops": 1
+  },
+  {
+    "asset": "yes",
+    "frametime": 4,
+    "rarity": 1,
+    "anchor_margin": 10,
+    "loops": 1
+  }
+]

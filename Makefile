@@ -1,2 +1,2 @@
 build:
-	go build src -ldflags -H=windowsgui "-s -w" -o "bin/Ragnarok Buddy.exe"
+	go build -ldflags "-s -w" -o "./temp/bin/Ragnarok Buddy.exe" ragnarok-buddy/cmd/ragnarok-buddy
