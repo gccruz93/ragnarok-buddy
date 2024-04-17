@@ -57,7 +57,7 @@ func (g *Game) Update() error {
 	mobs.Update()
 	emotes.Update()
 
-	if core.FrameTick%emotes.NextSpawnTick == 0 && emotes.EmoteActive == nil {
+	if core.FrameTick%emotes.NextSpawnTick == 0 && emotes.EmoteActive == nil && len(mobs.List) > 0 {
 		emotes.SpawnRandom()
 		mobs.List[helpers.Random(0, len(mobs.List)-1)].Emote = emotes.EmoteActive
 	}
@@ -80,11 +80,11 @@ func setScreenArea() {
 }
 
 func main() {
-	ebiten.SetWindowTitle(core.Title)
 	ebiten.SetWindowDecorated(false)
 	ebiten.SetWindowFloating(true)
 	ebiten.SetWindowMousePassthrough(true)
 	setScreenArea()
+	ebiten.SetWindowTitle(core.Title)
 
 	img, _, err := image.Decode(bytes.NewReader(assets.Icon))
 	if err != nil {
