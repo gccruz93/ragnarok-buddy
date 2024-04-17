@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os/exec"
 	"ragnarok-buddy/assets"
 	"ragnarok-buddy/internal/core"
 	"ragnarok-buddy/internal/emotes"
@@ -30,6 +31,13 @@ func onReady() {
 
 	systray.AddSeparator()
 
+	mOpenCfg := systray.AddMenuItem("Configuração", "Configuração")
+	mOpenCfg.Click(func() {
+		if exec.Command("start", "cfg.ini").Run() != nil {
+			exec.Command("notepad", "cfg.ini").Run()
+		}
+	})
+
 	mTaskbar := systray.AddMenuItem("Esconder da barra de tarefas", "Esconder da barra de tarefas")
 	mTaskbar.SetIcon(assets.IconTfHiding)
 	mTaskbar.Click(func() {
@@ -48,6 +56,7 @@ func onReady() {
 	mReload.SetIcon(assets.IconMoExtremityFirst)
 	mReload.Click(func() {
 		core.Cfg.Load()
+		setScreenArea()
 		mobs.LoadConfig()
 		emotes.LoadConfig()
 	})
