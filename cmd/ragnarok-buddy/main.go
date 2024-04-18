@@ -71,7 +71,9 @@ func (g *Game) Draw(screen *ebiten.Image) {
 }
 
 func setScreenArea() {
-	sw, sh := ebiten.ScreenSizeInFullscreen()
+	sw, sh := ebiten.Monitor().Size()
+	// log.Println(ebiten.WindowPosition())
+	log.Println(ebiten.Monitor())
 	screenHeight := sh - core.Cfg.ScreenPaddingBottom
 	screenWidth := sw * core.Cfg.ScreenMonitors
 	ebiten.SetWindowSize(screenWidth, screenHeight)
