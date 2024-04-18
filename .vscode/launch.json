@@ -12,6 +12,15 @@
       "program": "${workspaceFolder}/cmd/ragnarok-buddy",
       "output": "${workspaceFolder}/temp/debug/debug.exe",
       "cwd": "${workspaceFolder}/temp/debug"
+    },
+    {
+      "name": "Debug Tester",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/cmd/tester",
+      "output": "${workspaceFolder}/temp/debug/debug.exe",
+      "cwd": "${workspaceFolder}/temp/debug"
     }
   ]
 }
