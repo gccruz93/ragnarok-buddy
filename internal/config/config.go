@@ -80,13 +80,13 @@ func (c *Config) LoadDefaults() {
 	c.CursorAttack = false
 
 	c.MobsSpawnCycle = true
-	c.MobsSpawnTotal = 4
-	c.MobsSpawnSecondsMin = 3
-	c.MobsSpawnSecondsMax = 10
-	c.MobsDespawnSecondsMin = 60
-	c.MobsDespawnSecondsMax = 120
+	c.MobsSpawnTotal = 5
+	c.MobsSpawnSecondsMin = 2
+	c.MobsSpawnSecondsMax = 8
+	c.MobsDespawnSecondsMin = 180
+	c.MobsDespawnSecondsMax = 600
 	c.EmoteSpawnSecondsMin = 45
-	c.EmoteSpawnSecondsMax = 120
+	c.EmoteSpawnSecondsMax = 90
 
 	c.MapCycle = false
 }

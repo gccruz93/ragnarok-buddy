@@ -85,7 +85,6 @@ func SpawnRandom(n int) {
 			loadAsset(mobConfig.Asset + "_die")
 		}
 
-		mob.setStatus("idle")
 		mob.setSpawn()
 
 		List = append(List, mob)

@@ -105,6 +105,10 @@ func (m *Mob) Update() {
 	m.Y = core.ScreenHeight - m.Height
 	m.Y += m.Vy
 
+	if m.frameIndex == m.frameLength-1 && !m.frameLooping {
+		m.setIdle()
+	}
+
 	if core.FrameTick%m.frameTime == 0 {
 		m.frameIndex = (m.frameIndex + 1) % m.frameLength
 
@@ -136,7 +140,11 @@ func (m *Mob) Draw(screen *ebiten.Image) {
 		} else if m.rarity == 1 {
 			rarity = "RARO"
 		}
-		text.Draw(screen, fmt.Sprint(m.name+" ("+rarity+") ", m.hp), core.Font, int(m.X), int(m.Y-20), color.White)
+		if core.Cfg.CursorAttack {
+			text.Draw(screen, fmt.Sprint(m.name+" ("+rarity+") ", m.hp), core.Font, int(m.X), int(m.Y-15), color.White)
+		} else {
+			text.Draw(screen, m.name+" ("+rarity+")", core.Font, int(m.X), int(m.Y-15), color.White)
+		}
 	}
 }
 
@@ -159,12 +167,18 @@ func (m *Mob) setIdle() {
 	m.idleTime = m.frameTime * m.frameLength * loops
 }
 func (m *Mob) setWalk() {
+	if m.walkFrametime == 0 {
+		return
+	}
 	m.frameTime = m.walkFrametime
 	m.frameAudio = m.walkAudioFrame
 	m.frameLooping = true
 	m.setStatus("walk")
 }
 func (m *Mob) setAttack() {
+	if m.attackFrametime == 0 {
+		return
+	}
 	m.frameTime = m.attackFrametime
 	m.frameAudio = m.attackAudioFrame
 	m.frameLooping = false
@@ -172,6 +186,9 @@ func (m *Mob) setAttack() {
 	m.setStatus("attack")
 }
 func (m *Mob) setDamage() {
+	if m.damageFrametime == 0 {
+		return
+	}
 	m.frameTime = m.damageFrametime
 	m.frameAudio = m.damageAudioFrame
 	m.frameLooping = false
@@ -179,6 +196,9 @@ func (m *Mob) setDamage() {
 	m.setStatus("damage")
 }
 func (m *Mob) setDie() {
+	if m.dieFrametime == 0 {
+		return
+	}
 	m.frameTime = m.dieFrametime
 	m.frameAudio = m.dieAudioFrame
 	m.frameLooping = false
@@ -186,6 +206,9 @@ func (m *Mob) setDie() {
 	m.setStatus("die")
 }
 func (m *Mob) setAction() {
+	if m.actionFrametime == 0 {
+		return
+	}
 	m.frameTime = m.actionFrametime
 	m.frameAudio = m.actionAudioFrame
 	m.frameLooping = false
@@ -193,6 +216,9 @@ func (m *Mob) setAction() {
 	m.setStatus("action")
 }
 func (m *Mob) setAction2() {
+	if m.action2Frametime == 0 {
+		return
+	}
 	m.frameTime = m.action2Frametime
 	m.frameAudio = m.action2AudioFrame
 	m.frameLooping = false
@@ -200,6 +226,9 @@ func (m *Mob) setAction2() {
 	m.setStatus("action2")
 }
 func (m *Mob) setAction3() {
+	if m.action3Frametime == 0 {
+		return
+	}
 	m.frameTime = m.action3Frametime
 	m.frameAudio = m.action3AudioFrame
 	m.frameLooping = false
@@ -207,6 +236,9 @@ func (m *Mob) setAction3() {
 	m.setStatus("action3")
 }
 func (m *Mob) setAction4() {
+	if m.action4Frametime == 0 {
+		return
+	}
 	m.frameTime = m.action4Frametime
 	m.frameAudio = m.action4AudioFrame
 	m.frameLooping = false
@@ -218,9 +250,5 @@ func (m *Mob) setSpawn() {
 	m.X = float64(helpers.Random(0, int(float64(core.Cfg.ScreenMonitors)*core.ScreenWidth-2*m.Width)))
 	m.lifeTime = helpers.Random(core.Cfg.MobsDespawnSecondsMin, core.Cfg.MobsDespawnSecondsMin) * ebiten.TPS()
 	m.setIdle()
-	if helpers.Random(0, 1) == 0 {
-		m.invert = false
-	} else {
-		m.invert = true
-	}
+	m.invert = helpers.Random(0, 1) == 1
 }

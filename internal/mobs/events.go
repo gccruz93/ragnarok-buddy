@@ -16,11 +16,13 @@ func Update() {
 
 		if helpers.IsMouseHover(core.Mx, core.My, e.X, e.Y, e.X+e.Width, e.Y+e.Height) {
 			e.showName = true
-			e.damageTick++
 
-			if e.damageTick%ebiten.TPS() == 0 {
-				e.hp -= 35
-				e.setDamage()
+			if core.Cfg.CursorAttack {
+				e.damageTick++
+				if e.damageTick%ebiten.TPS() == 0 {
+					e.hp -= 35
+					e.setDamage()
+				}
 			}
 		} else {
 			e.showName = false
