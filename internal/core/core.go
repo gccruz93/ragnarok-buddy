@@ -4,7 +4,7 @@ import (
 	"ragnarok-buddy/internal/config"
 
 	"github.com/hajimehoshi/ebiten/v2/audio"
-	"golang.org/x/image/font"
+	"github.com/hajimehoshi/ebiten/v2/text/v2"
 )
 
 var (
@@ -14,7 +14,8 @@ var (
 	ScreenWidth  = 0.0
 	FrameTick    = 0
 	AudioContext *audio.Context
-	Font         font.Face
+	FaceSource   *text.GoTextFaceSource
+	NormalFace   *text.GoTextFace
 )
 
 var (

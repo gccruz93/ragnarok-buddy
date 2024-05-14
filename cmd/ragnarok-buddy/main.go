@@ -17,8 +17,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/audio"
 	"github.com/hajimehoshi/ebiten/v2/examples/resources/fonts"
-	"golang.org/x/image/font"
-	"golang.org/x/image/font/opentype"
+	"github.com/hajimehoshi/ebiten/v2/text/v2"
 )
 
 func init() {
@@ -26,16 +25,16 @@ func init() {
 	mobs.LoadConfig()
 	emotes.LoadConfig()
 
-	tt, err := opentype.Parse(fonts.MPlus1pRegular_ttf)
+	s, err := text.NewGoTextFaceSource(bytes.NewReader(fonts.MPlus1pRegular_ttf))
 	if err != nil {
 		log.Fatal(err)
 	}
+	core.FaceSource = s
 
-	core.Font, _ = opentype.NewFace(tt, &opentype.FaceOptions{
-		Size:    14,
-		DPI:     62,
-		Hinting: font.HintingVertical,
-	})
+	core.NormalFace = &text.GoTextFace{
+		Source: s,
+		Size:   11,
+	}
 
 	core.AudioContext = audio.NewContext(core.SampleRate)
 }

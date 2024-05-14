@@ -8,7 +8,8 @@ import (
 	"ragnarok-buddy/pkg/helpers"
 
 	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/text"
+	"github.com/hajimehoshi/ebiten/v2/text/v2"
+	"github.com/hajimehoshi/ebiten/v2/vector"
 )
 
 var (
@@ -57,7 +58,7 @@ type Mob struct {
 	action4AudioFrame int
 
 	// draw
-	showName bool
+	isHovering bool
 }
 
 func (m *Mob) Update() {
@@ -133,18 +134,29 @@ func (m *Mob) Draw(screen *ebiten.Image) {
 	op.GeoM.Translate(m.X, m.Y-m.anchorMargin)
 	screen.DrawImage(cachedGifs[m.gifName].Frames[m.frameIndex], op)
 
-	if m.showName {
+	if m.isHovering {
 		rarity := "comum"
 		if m.rarity == 10 {
 			rarity = "incomum"
 		} else if m.rarity == 1 {
 			rarity = "RARO"
 		}
+
+		name := ""
 		if core.Cfg.CursorAttack {
-			text.Draw(screen, fmt.Sprint(m.name+" ("+rarity+") ", m.hp), core.Font, int(m.X), int(m.Y-15), color.White)
+			name = fmt.Sprint(m.name+" ("+rarity+") ", m.hp)
 		} else {
-			text.Draw(screen, m.name+" ("+rarity+")", core.Font, int(m.X), int(m.Y-15), color.White)
+			name = m.name + " (" + rarity + ")"
 		}
+
+		w, h := text.Measure(name, core.NormalFace, core.NormalFace.Size)
+		xPadding := 16.0
+		topPadding := 8.0
+		bottomPadding := 7.0
+		vector.DrawFilledRect(screen, float32(m.X+m.Width/2-w/2-xPadding/2), float32(m.Y-2*h-topPadding/4), float32(w+xPadding), float32(h+bottomPadding/2), color.RGBA{R: 0, G: 0, B: 0, A: 80}, false)
+		op := &text.DrawOptions{}
+		op.GeoM.Translate(m.X+m.Width/2-w/2, m.Y-2*h)
+		text.Draw(screen, name, core.NormalFace, op)
 	}
 }
 

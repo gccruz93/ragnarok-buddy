@@ -15,7 +15,7 @@ func Update() {
 		e.Update()
 
 		if helpers.IsMouseHover(core.Mx, core.My, e.X, e.Y, e.X+e.Width, e.Y+e.Height) {
-			e.showName = true
+			e.isHovering = true
 
 			if core.Cfg.CursorAttack {
 				e.damageTick++
@@ -25,7 +25,7 @@ func Update() {
 				}
 			}
 		} else {
-			e.showName = false
+			e.isHovering = false
 			e.damageTick = 0
 			if e.hp < 100 {
 				e.hp++
