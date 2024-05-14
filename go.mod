@@ -10,6 +10,7 @@ require (
 require (
 	github.com/ebitengine/gomobile v0.0.0-20240429094902-cf88669c3591 // indirect
 	github.com/ebitengine/hideconsole v1.0.0 // indirect
+	github.com/go-text/typesetting v0.1.1-0.20240325125605-c7936fe59984 // indirect
 	github.com/godbus/dbus/v5 v5.1.0 // indirect
 	github.com/stretchr/testify v1.9.0 // indirect
 	github.com/tevino/abool v0.0.0-20220530134649-2bfc934cb23c // indirect
